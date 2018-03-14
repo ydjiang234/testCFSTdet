@@ -17,8 +17,6 @@ matCFSTd::matCFSTd(double E, double f1, double f2, double b1, double b2, double 
     this->Efactor = Efactor;
     this->Rfactor = Rfactor;
 
-    this->isDet = false;
-    this->isDet_next = false;
     
     this->E = this->E_ini;
     this->EDet = this->E_ini;

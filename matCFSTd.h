@@ -37,7 +37,6 @@ private:
 
     double strainCum, strainCum_next;
     double Ystrain;
-    bool isDet, isDet_next;
     double EDet, RevRatioDet;
     void updateERevRatio();
 };
