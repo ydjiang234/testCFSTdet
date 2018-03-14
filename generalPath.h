@@ -11,26 +11,23 @@ public:
     generalPath();
     ~generalPath();
 
-
-
     virtual unsigned int isLeave(double nextX);// 0 - stay, 1 - new LP1, 21 - new LP2 from LP1, 22 - new LP2 from LP2 3 - back to BB
     double getE(double x);
     double getY(double x);
     void back2Path(double x);
 
-    double curX, curY, curE;
-    bool isOnPath;
-
-
-
-    
-    
-private:
-    std::vector<double> xdata, ydata,Edata;
-    std::vector<double> linearRange;
-
     bool isLinear(double x);
     bool isInRange(double x);
+
+    double curX, curY, curE;
+    bool isOnPath;
+    std::vector<double> linearRange;
+    std::vector<double> xdata, ydata,Edata;
+      
+private:
+
+
+
 
 
     bool inRange(double x, double low, double high);
