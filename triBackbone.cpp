@@ -3,6 +3,7 @@
 #include <float.h>
 #include <iostream>
 #include <vector>
+#include <cmath>
 
 TriBackbone::TriBackbone(std::vector<double> xdata, std::vector<double> ydata) : generalPath(xdata, ydata)
 {
@@ -30,7 +31,7 @@ unLoadPath1 TriBackbone::unload(double y, double curE, double curRev)
             Rev = curRev;
             tempDirection = 1;
         }
-        tempx1 = this->curX - (this->curX - Rev) / curE;
+        tempx1 = this->curX - (this->curY - Rev) / curE;
 
         if (this->curX > 0) {
             tempxdata = {-this->curX, tempx1, this->curX};
@@ -64,9 +65,26 @@ unsigned int TriBackbone::isLeave(double nextX)
     return out;
 }
 
+TriBackbone TriBackbone::updateBackbone(double dRatio, double curX)
+{
+    std::vector<double> tempxdata, tempydata;
+    tempxdata = this->xdata;
+    tempydata = this->ydata;
+    if (curX < 0) {
+        for (int i=0; i<(this->size/2); i++) {
+            tempydata[i] = this->ydata[i] * dRatio;
+        }
+    } else {
+        for (int i=(this->size/2); i<this->size; i++) {
+            tempydata[i] = this->ydata[i] * dRatio;
+        }
+    }
+    return TriBackbone(tempxdata, tempydata);
+}
+
 void TriBackbone::initial()
 {
-    this->linearRange.push_back(this->xdata[2]) ;
-    this->linearRange.push_back(this->xdata[3]) ;
+    this->linearRange.push_back(this->xdata[this->size/2 - 1]) ;
+    this->linearRange.push_back(this->xdata[this->size/2]) ;
 }
 

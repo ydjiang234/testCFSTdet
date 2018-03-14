@@ -8,6 +8,7 @@ generalPath::generalPath(std::vector<double> xdata, std::vector<double> ydata)
 {
     this->xdata = xdata;
     this->ydata = ydata;
+    this->size = this->xdata.size();
     this->isOnPath = false;
     for (int i=1; i<xdata.size(); i++){
         this->Edata.push_back((this->ydata[i] - this->ydata[i-1]) / (this->xdata[i] - this->xdata[i-1]));

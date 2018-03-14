@@ -4,6 +4,7 @@
 #include "unLoadPath1.h"
 #include "unLoadPath2.h"
 #include <float.h>
+#include <cmath>
 
 
 unLoadPath1::unLoadPath1(std::vector<double> xdata, std::vector<double> ydata, int direction) : generalPath(xdata, ydata)
@@ -24,7 +25,6 @@ unLoadPath2 unLoadPath1::unload(double y, double curE, double curRev)
         if (std::abs(y) <= curRev)
             curRev = std::abs(y);
 
-
         if (this->direction==1) {
             Rev = -1 * curRev;
         } else {
@@ -34,7 +34,7 @@ unLoadPath2 unLoadPath1::unload(double y, double curE, double curRev)
         
         if (this->direction==1) {
             tempxdata = {this->xdata[0], tempx1, this->curX, this->xdata.back()};
-            tempydata = {y, Rev, this->curY, this->ydata.back()};
+            tempydata = {-y, Rev, this->curY, this->ydata.back()};
         } else {
             tempxdata = {this->xdata[0], this->curX, tempx1, this->xdata.back()};
             tempydata = {this->ydata[0], this->curY, Rev, y};
@@ -74,6 +74,4 @@ void unLoadPath1::initial()
         this->linearRange.push_back(this->xdata[1]);
         this->linearRange.push_back(this->xdata[2]);
     }
-    
-    
 }

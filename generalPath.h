@@ -20,6 +20,7 @@ public:
     bool isInRange(double x);
 
     double curX, curY, curE;
+    unsigned int size;
     bool isOnPath;
     std::vector<double> linearRange;
     std::vector<double> xdata, ydata,Edata;
