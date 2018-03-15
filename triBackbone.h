@@ -16,7 +16,7 @@ public:
     
     unLoadPath1 unload(double y, double curE, double curRev);
     unsigned int isLeave(double nextX);
-    TriBackbone updateBackbone(double dRatio, double curX);
+    TriBackbone updateBackbone(double dRatio);
     
 
 private:

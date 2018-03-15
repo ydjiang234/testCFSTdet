@@ -22,6 +22,11 @@ unLoadPath2 unLoadPath1::unload(double y, double curE, double curRev)
     double Rev, tempx1;
     std::vector<double> tempxdata, tempydata;
     if (this->isLinear(this->curX) == false) {
+        if (curE <= this->curY/this->curX)
+        {
+            curE = this->curY/this->curX;
+        }
+
         if (std::abs(y) <= curRev)
             curRev = std::abs(y);
 
