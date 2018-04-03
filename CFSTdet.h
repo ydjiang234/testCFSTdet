@@ -3,12 +3,14 @@
 
 
 #include <UniaxialMaterial.h>
-#include "matCFSTd.h"
+#include "matCFSTdet.h"
 
 class CFSTdet : public UniaxialMaterial
 {
 public:
-    CFSTdet(int tag, double E, double f1, double f2, double b1, double b2, double revRatio, double Dfactor, double Efactor, double Rfactor);
+    CFSTdet(int tag, double E, double f1, double f2, double b1, double b2, double revRatio,
+            double Dfactor1, double Efactor1, double Rfactor1,
+            double Dfactor2, double Efactor2, double Rfactor2);
     CFSTdet();
     ~CFSTdet();
     UniaxialMaterial *getCopy(void);
@@ -34,7 +36,7 @@ public:
 protected:
 
 private:
-    matCFSTd curMat;
+    matCFSTdet curMat;
 
 };
 

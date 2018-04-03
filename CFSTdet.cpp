@@ -1,10 +1,10 @@
 #include <elementAPI.h>
-#include "CFSTdet.h"
 #include <Vector.h>
 #include <Channel.h>
 #include <math.h>
 #include <float.h>
-#include "matCFSTd.h"
+#include "matCFSTdet.h"
+#include "CFSTdet.h"
 
 #ifdef _USRDLL
 #define OPS_Export extern "C" _declspec(dllexport)
@@ -33,7 +33,7 @@ OPS_Export void *OPS_CFSTdet()
     //
 
     int    iData[1];
-    double dData[9];
+    double dData[12];
     int numData;
     numData = 1;
     if (OPS_GetIntInput(&numData, iData) != 0) {
@@ -41,9 +41,9 @@ OPS_Export void *OPS_CFSTdet()
         return 0;
     }
 
-    numData = 9;
+    numData = 12;
     if (OPS_GetDoubleInput(&numData, dData) != 0) {
-        opserr << "WARNING invalid E & f1 & f2 & b1 & b2 & revRatio & dFactor & Efactor & Rfactor\n";
+        opserr << "WARNING invalid E & f1 & f2 & b1 & b2 & revRatio & Dfactor1 & Efactor1 & Rfactor1 & Dfactor2 & Efactor2 & Rfactor2\n";
         return 0;
     }
 
@@ -51,10 +51,10 @@ OPS_Export void *OPS_CFSTdet()
     // create a new material
     //
 
-    theMaterial = new CFSTdet(iData[0], dData[0], dData[1], dData[2], dData[3], dData[4], dData[5], dData[6], dData[7], dData[8]);
+    theMaterial = new CFSTdet(iData[0], dData[0], dData[1], dData[2], dData[3], dData[4], dData[5], dData[6], dData[7], dData[8], dData[9], dData[10], dData[11]);
 
     if (theMaterial == 0) {
-        opserr << "WARNING could not create uniaxialMaterial of type CFSTdet\n";
+        opserr << "WARNING could not create uniaxialMaterial of type CFSTdet!\n";
         return 0;
     }
 
@@ -63,15 +63,17 @@ OPS_Export void *OPS_CFSTdet()
 }
 
 
-CFSTdet::CFSTdet(int tag, double E, double f1, double f2, double b1, double b2, double revRatio, double Dfactor, double Efactor, double Rfactor):UniaxialMaterial(tag, 0)
+CFSTdet::CFSTdet(int tag, double E, double f1, double f2, double b1, double b2, double revRatio,
+                 double Dfactor1, double Efactor1, double Rfactor1,
+                 double Dfactor2, double Efactor2, double Rfactor2):UniaxialMaterial(tag, 0)
 {
-    this->curMat = matCFSTd(E, f1, f2, b1, b2, revRatio, Dfactor, Efactor, Rfactor);
+    this->curMat = matCFSTdet(E, f1, f2, b1, b2, revRatio,
+                            Dfactor1, Efactor1, Rfactor1,
+                            Dfactor2, Efactor2, Rfactor2);
 }
 
 
-CFSTdet::CFSTdet() :UniaxialMaterial(0, 0)
-{
-}
+CFSTdet::CFSTdet() :UniaxialMaterial(0, 0) {}
 
 CFSTdet::~CFSTdet()
 {
@@ -130,7 +132,9 @@ int CFSTdet::revertToStart(void)
 
 UniaxialMaterial *CFSTdet::getCopy(void)
 {
-    CFSTdet *theCopy = new CFSTdet(this->getTag(), this->curMat.E_ini, this->curMat.f1, this->curMat.f2, this->curMat.b1, this->curMat.b2, this->curMat.revRatio, this->curMat.Dfactor, this->curMat.Efactor, this->curMat.Rfactor);
+    CFSTdet *theCopy = new CFSTdet(this->getTag(), this->curMat.E_ini, this->curMat.f1, this->curMat.f2, this->curMat.b1, this->curMat.b2, this->curMat.revRatio,
+                                   this->curMat.Dfactor1, this->curMat.Efactor1, this->curMat.Rfactor1,
+                                   this->curMat.Dfactor2, this->curMat.Efactor2, this->curMat.Rfactor2);
     theCopy->curMat = this->curMat;
     //opserr << this->i << endln;
     return theCopy;
