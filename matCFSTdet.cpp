@@ -197,7 +197,7 @@ generalPath* matCFSTdet::getCurLP()
 double matCFSTdet::DdetRatio(double x, double factor1, double factor2, double lowerbound)
 {
     double out;
-    out = 1.0 - (factor1 * std::pow(x, factor2));
+    out = 1.0 - std::pow(factor1 * x, factor2);
     if (out < lowerbound) out = lowerbound;
     return out;
 }
@@ -205,7 +205,7 @@ double matCFSTdet::DdetRatio(double x, double factor1, double factor2, double lo
 double matCFSTdet::EdetRatio(double x, double factor1, double factor2, double lowerbound)
 {
     double out;
-    out = 1.0 - (factor1 * std::pow(x, factor2));
+    out = 1.0 - std::pow(factor1 * x, factor2);
     if (out < lowerbound) out = lowerbound;
     return out;
 }
@@ -213,7 +213,7 @@ double matCFSTdet::EdetRatio(double x, double factor1, double factor2, double lo
 double matCFSTdet::RdetRatio(double x, double factor1, double factor2, double lowerbound)
 {
     double out;
-    out = 1.0 - (factor1 * std::pow(x, factor2));
+    out = 1.0 - std::pow(factor1 * x, factor2);
     if (out < lowerbound) out = lowerbound;
     return out;
 }

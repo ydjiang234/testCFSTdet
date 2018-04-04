@@ -6,12 +6,19 @@
 
 generalPath::generalPath(std::vector<double> xdata, std::vector<double> ydata)
 {
+    double tempE;
     this->xdata = xdata;
     this->ydata = ydata;
     this->size = this->xdata.size();
     this->isOnPath = false;
     for (int i=1; i<xdata.size(); i++){
-        this->Edata.push_back((this->ydata[i] - this->ydata[i-1]) / (this->xdata[i] - this->xdata[i-1]));
+        tempE = (this->ydata[i] - this->ydata[i-1]) / (this->xdata[i] - this->xdata[i-1]);
+        if ((tempE<DBL_EPSILON) && tempE>=0) {
+            tempE = DBL_EPSILON;
+        } else if ((tempE>-1*DBL_EPSILON) && tempE<0) {
+            tempE = -1*DBL_EPSILON;
+        }
+        this->Edata.push_back(tempE);
     }
 }
 
